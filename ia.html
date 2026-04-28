@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>IA - STP-Digital</title>
+
+<style>
+
+body{
+background:#0f172a;
+color:white;
+font-family:Arial;
+padding:30px;
+}
+
+h1{
+margin-bottom:20px;
+}
+
+.chat{
+background:rgba(255,255,255,0.05);
+padding:20px;
+border-radius:20px;
+height:400px;
+overflow:auto;
+margin-bottom:20px;
+}
+
+input{
+width:80%;
+padding:15px;
+border:none;
+border-radius:12px;
+outline:none;
+}
+
+button{
+padding:15px;
+border:none;
+border-radius:12px;
+background:#3b82f6;
+color:white;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🤖 IA STP-Digital</h1>
+
+<div class="chat" id="chat">
+
+<p>IA: Olá 😄 Como posso ajudar?</p>
+
+</div>
+
+<input type="text" id="pergunta" placeholder="Pergunte algo...">
+
+<button onclick="enviar()">
+Enviar
+</button>
+
+<script>
+
+function enviar(){
+
+let pergunta =
+document.getElementById("pergunta").value;
+
+let chat =
+document.getElementById("chat");
+
+chat.innerHTML += `
+<p><b>Você:</b> ${pergunta}</p>
+`;
+
+chat.innerHTML += `
+<p><b>IA:</b> Ainda estou em desenvolvimento 😄</p>
+`;
+
+}
+
+</script>
+
+</body>
+</html>

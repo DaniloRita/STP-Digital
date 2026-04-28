@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>STP-Digital Login</title>
+<title>Registrar - STP-Digital</title>
 
 <style>
 
@@ -24,7 +24,7 @@ background:#0f172a;
 overflow:hidden;
 }
 
-/* fundo animado */
+/* fundo */
 body::before{
 content:"";
 position:absolute;
@@ -51,7 +51,7 @@ right:-100px;
 opacity:0.5;
 }
 
-.login-box{
+.register-box{
 position:relative;
 width:350px;
 padding:40px;
@@ -62,12 +62,24 @@ border:1px solid rgba(255,255,255,0.1);
 box-shadow:0 0 30px rgba(0,0,0,0.3);
 color:white;
 z-index:10;
+animation:fade 1s ease;
 }
 
-.login-box h1{
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.register-box h1{
 text-align:center;
 margin-bottom:30px;
-font-size:32px;
+font-size:30px;
 }
 
 .input-box{
@@ -122,23 +134,29 @@ text-decoration:none;
 
 <body>
 
-<div class="login-box">
+<div class="register-box">
 
-<h1>STP-Digital</h1>
+<h1>Criar Conta</h1>
 
 <div class="input-box">
-<input type="email" placeholder="Seu email">
+<input type="text" placeholder="Nome de usuário">
 </div>
 
 <div class="input-box">
-<input type="password" placeholder="Sua senha">
+<input type="email" id="email" placeholder="Seu email">
 </div>
 
-<button onclick="login()">Entrar</button>
+<div class="input-box">
+<input type="password" id="senha" placeholder="Criar senha">
+</div>
+
+<button onclick="registrar()">
+Registrar
+</button>
 
 <div class="text">
-Não tens conta?
-<a href="Registro.html">Criar conta</a>
+Já tens conta?
+<a href="Index.html">Entrar</a>
 </div>
 
 </div>
