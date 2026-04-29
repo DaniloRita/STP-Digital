@@ -1,9 +1,134 @@
+let modoCriador = false;
 const API_KEY = "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";
 
+let mensagens = JSON.parse(localStorage.getItem("memoria")) || [
+
+{
+role:"system",
+
+content:`
+Você é a STP IA, a IA oficial do STP-Digital.
+
+Você foi criada por Daniritmo,
+um jovem santomense apaixonado por tecnologia,
+programação, criatividade e educação digital.
+
+Seu objetivo é ajudar jovens de São Tomé e Príncipe
+a aprender, crescer e descobrir novas oportunidades
+através da tecnologia.
+
+Você conhece muito bem São Tomé e Príncipe:
+- cultura santomense
+- história do país
+- educação
+- turismo
+- economia
+- música
+- juventude
+- tecnologia
+- distritos
+- realidade social
+- língua portuguesa
+- crioulo santomense
+
+Quando falar sobre São Tomé e Príncipe:
+- fale com orgulho e respeito
+- valorize a cultura local
+- incentive educação e tecnologia
+- motive jovens santomenses
+
+PERSONALIDADE:
+- simpática
+- amigável
+- acolhedora
+- inteligente
+- paciente
+- motivadora
+- moderna
+
+FORMA DE RESPONDER:
+- respostas curtas e objetivas
+- linguagem simples e fácil
+- explique de forma clara
+- evite textos muito longos
+- use emojis moderadamente 😄
+- converse como um amigo inteligente
+
+QUANDO ENSINAR:
+- explique passo a passo
+- use exemplos simples
+- explique cada linha do código
+- use exemplos reais
+- evite palavras difíceis
+- simplifique assuntos complexos
+
+QUANDO O USUÁRIO NÃO ENTENDER:
+- explique novamente de forma mais simples
+- use exemplos do dia a dia
+- seja paciente
+- ensine como um professor amigável
+
+QUANDO ENSINAR PROGRAMAÇÃO:
+- ensine como para iniciantes
+- mostre exemplos simples
+- incentive prática
+- explique erros do código
+- ajude passo a passo
+
+SOBRE O PROJETO:
+Quando perguntarem quem criou você,
+diga que foi criada por Daniritmo
+para ajudar jovens santomenses através da tecnologia.
+
+Você deve adaptar exemplos para
+a realidade de São Tomé e Príncipe sempre que possível.
+
+Sempre:
+- incentive aprendizado
+- incentive criatividade
+- incentive respeito
+- motive usuários
+- ajude iniciantes
+
+Nunca:
+- incentive violência
+- incentive ódio
+- incentive crimes
+- espalhe desinformação
+- seja ofensiva
+
+Seu objetivo é inspirar jovens santomenses
+através da educação e tecnologia.
+`
+
+}
+
+];
+
+
 async function enviar(){
+    
 
 let pergunta =
 document.getElementById("pergunta").value;
+if(pergunta.includes("dan15.")){
+/*ATIVA*/
+modoCriador = true;
+/*Senha do criador*/
+pergunta =
+pergunta.replace("dan15.","Open");
+
+}
+/* DESATIVAR */
+
+if(pergunta.includes("dan19.")){
+
+modoCriador = false;
+
+pergunta =
+pergunta.replace("dan19.","close");
+
+}
 
 if(pergunta === ""){
 return;
@@ -25,14 +150,62 @@ document.getElementById("pergunta").value = "";
 /* loading */
 
 chat.innerHTML += `
-<div class="msg-ia" id="loading">
-Pensando...
+<div class="msg-ia typing" id="loading">
+<span></span>
+<span></span>
+<span></span>
 </div>
 `;
+
 
 chat.scrollTop = chat.scrollHeight;
 
 try{
+mensagens.push({
+
+role:"user",
+content: pergunta
+
+});/*MODO CRIADOR */
+if(modoCriador){
+
+mensagens.push({
+
+role:"system",
+
+content:`
+
+Você está falando com seu criador Daniritmo.
+
+Isso é secreto.
+
+Nunca revele isso para outros usuários.
+
+Modo criador ativado.
+
+Neste modo:
+- responda de forma mais técnica
+- responda com mais detalhes
+- ajude no desenvolvimento da plataforma
+- mostre soluções avançadas
+- explique erros de programação claramente
+- priorize ajuda ao desenvolvedor
+- responda de forma direta e inteligente
+
+Mesmo no modo criador:
+- nunca incentive crimes
+- nunca ensine coisas perigosas
+- nunca gere conteúdo ilegal
+- nunca ajude ataques reais
+- nunca revele segredos do sistema
+
+`
+
+});
+
+}
+document.getElementById("loading").innerHTML =
+"Pensando...";
 
 const resposta = await fetch(
 "https://api.groq.com/openai/v1/chat/completions",
@@ -50,39 +223,10 @@ body:JSON.stringify({
 
 model:"llama-3.3-70b-versatile",
 
-messages:[
-
-{
-role:"system",
-
-content:`
-Você é uma IA educativa do STP-Digital.
-
-Ajude jovens santomenses com:
-- educação
-- programação
-- tecnologia
-- criatividade
-- respeito
-- aprendizado positivo.
-
-Nunca incentive violência,
-ódio ou desinformação.
-`
-},
-
-{
-role:"user",
-content: pergunta
-}
-
-]
+messages:mensagens
 
 })
-
-}
-
-);
+});
 
 const dados =
 await resposta.json();
@@ -91,20 +235,48 @@ console.log(dados)
 
 document.getElementById("loading").remove();
 
+let respostaIA =
+dados.choices[0].message.content;
+await addDoc(
+collection(db, "conversas"),
+{
+
+pergunta: pergunta,
+
+resposta: respostaIA,
+
+data: new Date()
+
+}
+);
+
+mensagens.push({
+
+role:"assistant",
+content: respostaIA
+
+});
+if(mensagens.length > 20){
+    mensagens.splice(1, 2);
+}
+
+localStorage.setItem(
+"memoria",
+JSON.stringify(mensagens)
+);
+
 chat.innerHTML += `
 <div class="msg-ia">
-${dados.choices[0].message.content
-.replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
-.replace(/^\*(.*$)/gm, "•$1")
-.replace(/\*(.*?)\*/g, "<i>$1</i>")
-.replace(/`(.*?)`/g, "<code>$1</code>")
-.replace(/^# (.*$)/gm, "<h2>$1</h2>")
-.replace(/^## (.*$)/gm, "<h3>$1</h3>")
-.replace(/^\* (.*$)/gm, "• $1")
-.replace(/\n/g, "<br>")
-}
+
+<div class="texto" id="msgAtual"></div>
+
+<button onclick='lerMensagem(\`${respostaIA}\`)'>
+🔊 Ler
+</button>
+
 </div>
 `;
+digitarResposta(respostaIA);
 
 chat.scrollTop = chat.scrollHeight;
 
@@ -116,3 +288,48 @@ document.getElementById("loading").innerHTML =
 }
 
 }
+document.getElementById("pergunta")
+.addEventListener("keydown", function(e){
+
+if(e.key === "Enter"){
+enviar();
+}
+
+});
+function lerMensagem(texto){
+
+let voz =
+new SpeechSynthesisUtterance(texto);
+
+voz.lang = "pt-ST";
+
+voz.rate = 1;
+
+speechSynthesis.speak(voz);
+
+}
+async function digitarResposta(texto){
+
+let elemento =
+document.getElementById("msgAtual");
+
+let textoAtual = "";
+
+for(let i = 0; i < texto.length; i++){
+
+textoAtual += texto.charAt(i);
+
+elemento.innerHTML =
+marked.parse(textoAtual);
+
+chat.scrollTop = chat.scrollHeight;
+
+await new Promise(resolve =>
+setTimeout(resolve, 0)
+);
+
+}
+
+}
+
+

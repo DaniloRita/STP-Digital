@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Perfil</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#0f172a;
+font-family:Arial;
+color:white;
+}
+
+/* capa */
+
+.capa{
+height:250px;
+background:linear-gradient(45deg,#00bfff,#7c3aed);
+position:relative;
+}
+
+/* foto perfil */
+
+.foto{
+width:140px;
+height:140px;
+border-radius:50%;
+border:6px solid #0f172a;
+position:absolute;
+bottom:-70px;
+left:50px;
+object-fit:cover;
+}
+
+/* perfil */
+
+.perfil{
+padding:100px 50px 30px;
+}
+
+/* nome */
+
+.nome{
+font-size:35px;
+font-weight:bold;
+}
+
+.username{
+color:#94a3b8;
+margin-top:5px;
+}
+
+/* bio */
+
+.bio{
+margin-top:20px;
+line-height:1.6;
+max-width:700px;
+}
+
+/* estatísticas */
+
+.stats{
+display:flex;
+gap:20px;
+margin-top:25px;
+flex-wrap:wrap;
+}
+
+.card{
+background:#111827;
+padding:20px;
+border-radius:20px;
+min-width:150px;
+text-align:center;
+}
+
+.card h2{
+color:#00bfff;
+margin-bottom:10px;
+}
+
+/* botões */
+
+.botoes{
+display:flex;
+gap:15px;
+margin-top:25px;
+flex-wrap:wrap;
+}
+
+button{
+padding:12px 20px;
+border:none;
+border-radius:12px;
+background:#00bfff;
+color:white;
+cursor:pointer;
+font-weight:bold;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+/* posts */
+
+.posts{
+margin-top:40px;
+}
+
+.post{
+background:#111827;
+padding:20px;
+border-radius:20px;
+margin-bottom:20px;
+animation:aparecer 0.4s ease;
+}
+
+.post p{
+line-height:1.6;
+}
+
+@keyframes aparecer{
+
+from{
+opacity:0;
+transform:translateY(10px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+.btn-foto{
+position:absolute;
+bottom:-20px;
+left:200px;
+background:#00bfff;
+padding:10px 15px;
+border-radius:12px;
+cursor:pointer;
+font-weight:bold;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<!-- capa -->
+
+<div class="capa">
+
+<input
+type="file"
+id="fotoInput"
+accept="image/*"
+hidden
+>
+
+<label for="fotoInput" class="btn-foto">
+📷 Trocar Foto
+</label>
+
+<img
+src="https://i.imgur.com/6VBx3io.png"
+class="foto"
+id="fotoPerfil"
+>
+
+
+</div>
+
+<!-- perfil -->
+
+<div class="perfil">
+
+<div class="nome">
+Danilo Rita 😄🔥
+</div>
+
+<div class="username">
+@danilorita72
+</div>
+
+<div class="bio">
+🚀 Jovem santomense apaixonado por tecnologia,
+IA, programação e educação digital.
+
+Criador do STP-Digital.
+</div>
+
+<!-- estatísticas -->
+
+<div class="stats">
+
+<div class="card">
+<h2>120</h2>
+<p>Posts</p>
+</div>
+
+<div class="card">
+<h2>5K</h2>
+<p>Seguidores</p>
+</div>
+
+<div class="card">
+<h2>980</h2>
+<p>Seguindo</p>
+</div>
+
+<div class="card">
+<h2>12K XP</h2>
+<p>Nível</p>
+</div>
+
+</div>
+
+<!-- botões -->
+
+<div class="botoes">
+
+<button>
+➕ Seguir
+</button>
+
+<button>
+💬 Mensagem
+</button>
+
+<button>
+⚙️ Editar Perfil
+</button>
+
+</div>
+
+<!-- posts -->
+
+<div class="posts">
+
+<div class="post">
+
+<p>
+🔥 Hoje melhorei a STP IA.
+Agora ela lembra conversas 😄
+</p>
+
+</div>
+
+<div class="post">
+
+<p>
+🌍 O futuro digital de São Tomé
+será incrível.
+</p>
+
+</div>
+
+</div>
+
+</div>
+<script src="perfil.js" ></script>
+</body>
+</html>

@@ -1,23 +1,171 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
 <meta charset="UTF-8">
-<title>Comunidade</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>STP Social</title>
 
 <style>
 
-body{
-background:#0f172a;
-color:white;
-font-family:Arial;
-padding:30px;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
-.post{
+body{
+background:#0f172a;
+font-family:Arial;
+color:white;
+}
+
+/* topo */
+
+header{
+background:#111827;
+padding:15px 30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+}
+
+.logo{
+font-size:25px;
+font-weight:bold;
+color:#00bfff;
+}
+
+/* layout */
+
+.container{
+display:flex;
+gap:20px;
+padding:20px;
+}
+
+/* menu lateral */
+
+.sidebar{
+width:250px;
+background:#111827;
+padding:20px;
+border-radius:20px;
+height:fit-content;
+}
+
+.sidebar h3{
+margin-bottom:20px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.menu a{
+text-decoration:none;
+color:white;
 background:rgba(255,255,255,0.05);
+padding:12px;
+border-radius:12px;
+transition:0.3s;
+}
+
+.menu a:hover{
+background:#00bfff;
+}
+
+/* feed */
+
+.feed{
+flex:1;
+}
+
+/* criar post */
+
+.criar-post{
+background:#111827;
 padding:20px;
 border-radius:20px;
 margin-bottom:20px;
+}
+
+.criar-post textarea{
+width:100%;
+height:100px;
+background:#0f172a;
+border:none;
+outline:none;
+color:white;
+padding:15px;
+border-radius:15px;
+resize:none;
+}
+
+.criar-post button{
+margin-top:15px;
+padding:12px 20px;
+border:none;
+border-radius:12px;
+background:#00bfff;
+color:white;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* posts */
+
+.post{
+background:#111827;
+padding:20px;
+border-radius:20px;
+margin-bottom:20px;
+animation:aparecer 0.4s ease;
+}
+
+.post h3{
+margin-bottom:10px;
+color:#00bfff;
+}
+
+.post p{
+line-height:1.6;
+}
+
+.acoes{
+display:flex;
+gap:15px;
+margin-top:15px;
+}
+
+.acoes button{
+background:rgba(255,255,255,0.05);
+border:none;
+padding:10px 15px;
+border-radius:10px;
+color:white;
+cursor:pointer;
+}
+
+/* animação */
+
+@keyframes aparecer{
+
+from{
+opacity:0;
+transform:translateY(10px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
 }
 
 </style>
@@ -25,17 +173,133 @@ margin-bottom:20px;
 
 <body>
 
-<h1>🌍 Comunidade STP</h1>
+<header>
+
+<div class="logo">
+🌍 STP Social
+</div>
+
+<div>
+😄 Comunidade Digital Santomense
+</div>
+
+</header>
+
+<div class="container">
+
+<!-- menu -->
+
+<div class="sidebar">
+
+<h3>Menu</h3>
+
+<div class="menu">
+
+<a href="index.html">🏠 Início</a>
+<a href="perfil.html">👤 Perfil</a>
+<a href="#">💬 Comunidade</a>
+<a href="ia.html">🤖 STP IA</a>
+<a href="#">🏆 Ranking</a>
+
+</div>
+
+</div>
+
+<!-- feed -->
+
+<div class="feed">
+
+<!-- criar post -->
+
+<div class="criar-post">
+
+<textarea
+id="textoPost"
+placeholder="Compartilhe algo com a comunidade..."
+></textarea>
+
+<button onclick="postar()">
+Publicar
+</button>
+
+</div>
+
+<!-- posts -->
+
+<div id="posts">
 
 <div class="post">
+
 <h3>@danilo</h3>
-<p>O futuro digital de São Tomé será incrível 🔥</p>
+
+<p>
+O futuro digital de São Tomé será incrível 🔥
+</p>
+
+<div class="acoes">
+<button>❤️ Curtir</button>
+<button>💬 Comentar</button>
+</div>
+
 </div>
 
 <div class="post">
+
 <h3>@maria</h3>
-<p>Estou aprendendo IA no STP-Digital 😄</p>
+
+<p>
+Estou aprendendo IA no STP-Digital 😄
+</p>
+
+<div class="acoes">
+<button>❤️ Curtir</button>
+<button>💬 Comentar</button>
 </div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function postar(){
+
+let texto =
+document.getElementById("textoPost").value;
+
+if(texto === ""){
+return;
+}
+
+let posts =
+document.getElementById("posts");
+
+posts.innerHTML =
+`
+<div class="post">
+
+<h3>@usuario</h3>
+
+<p>${texto}</p>
+
+<div class="acoes">
+<button>❤️ Curtir</button>
+<button>💬 Comentar</button>
+</div>
+
+</div>
+`
++ posts.innerHTML;
+
+document.getElementById("textoPost").value = "";
+
+}
+
+</script>
 
 </body>
 </html>
