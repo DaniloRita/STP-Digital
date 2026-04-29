@@ -1,11 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
 
-<title>STP-Digital Login</title>
+    <meta name="description" content="STP-Digital é uma plataforma moderna para jovens santomenses com IA educativa, tecnologia, desafios, aprendizado e comunidade digital">
+    <meta name="keywords" content="São Tomé, STP-Digital, Jovens santomense">
+    <meta name="author" content="STP-Digital">
+    <meta property="og:title" content="STP-Digital">
+    <meta property="og:descritption" content="O futuro digital dos jovens santomenses.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./img/bandeira_de_stp.png">
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5DQECCJMQ3"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-5DQECCJMQ3');
+    </script>
+    <script async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">
+    </script>
+
+    <title>STP-Digital</title>
+    <link rel="shortcut icon" href="./img/bandeira_de_stp.png" type="image/x-icon">
+    
 <style>
 
 *{
@@ -16,132 +39,158 @@ font-family:Arial, sans-serif;
 }
 
 body{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
 background:#0f172a;
-overflow:hidden;
-}
-
-/* fundo animado */
-body::before{
-content:"";
-position:absolute;
-width:400px;
-height:400px;
-background:#3b82f6;
-border-radius:50%;
-filter:blur(120px);
-top:-100px;
-left:-100px;
-opacity:0.5;
-}
-
-body::after{
-content:"";
-position:absolute;
-width:400px;
-height:400px;
-background:#8b5cf6;
-border-radius:50%;
-filter:blur(120px);
-bottom:-100px;
-right:-100px;
-opacity:0.5;
-}
-
-.login-box{
-position:relative;
-width:350px;
-padding:40px;
-border-radius:20px;
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(15px);
-border:1px solid rgba(255,255,255,0.1);
-box-shadow:0 0 30px rgba(0,0,0,0.3);
 color:white;
-z-index:10;
+min-height:100vh;
+padding:30px;
 }
 
-.login-box h1{
-text-align:center;
-margin-bottom:30px;
-font-size:32px;
+/* topo */
+
+.topo{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:40px;
 }
 
-.input-box{
-margin-bottom:20px;
+.logo{
+font-size:28px;
+font-weight:bold;
+background:linear-gradient(45deg,#3b82f6,#8b5cf6);
+-webkit-background-clip:text;
+background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
-.input-box input{
-width:100%;
-padding:15px;
-border:none;
-outline:none;
-border-radius:12px;
-background:rgba(255,255,255,0.08);
-color:white;
-font-size:16px;
-}
-
-.input-box input::placeholder{
-color:#cbd5e1;
-}
+/* botão sair */
 
 button{
-width:100%;
-padding:15px;
+padding:12px 20px;
 border:none;
 border-radius:12px;
 background:linear-gradient(45deg,#3b82f6,#8b5cf6);
 color:white;
-font-size:16px;
 cursor:pointer;
+font-size:15px;
+width: 100%;
+height: 100px;
+
+}
+
+/* cards */
+
+.container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:linear-gradient(45deg,#3b82f6,#8b5cf6);
+padding:25px;
+border-radius:20px;
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,0.1);
 transition:0.3s;
 }
 
-button:hover{
-transform:scale(1.03);
-opacity:0.9;
+.card:hover{
+transform:translateY(-5px);
 }
 
-.text{
-text-align:center;
-margin-top:20px;
+.card h2{
+margin-bottom:15px;
+}
+
+.card p{
 color:#cbd5e1;
 }
+.perfil{
 
-.text a{
-color:#60a5fa;
-text-decoration:none;
+width:55px;
+height:55px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+cursor:pointer;
+
+border:2px solid rgba(255,255,255,0.2);
+
+transition:0.3s;
+
+
+box-shadow:0 0 20px rgba(59,130,246,0.3);
+
 }
+
+.perfil:hover{
+
+transform:scale(1.08);
+
+box-shadow:0 0 25px #8b5cf6;
+
+}
+
 
 </style>
 </head>
 
-<body>
+<body onload="verificarLogin()">
 
-<div class="login-box">
+<div class="topo">
 
-<h1>STP-Digital</h1>
-
-<div class="input-box">
-<input type="email" placeholder="Seu email">
+<div class="logo">
+STP-Digital
 </div>
 
-<div class="input-box">
-<input type="password" placeholder="Sua senha">
-</div>
 
-<button onclick="login()">Entrar</button>
+<img src="https://storyblok-cdn.photoroom.com/f/191576/1200x800/9728fa15bd/round_profil_picture_after_.webp" class="perfil" onclick="window.location.href='Login.html'">
 
-<div class="text">
-Não tens conta?
-<a href="Registro.html">Criar conta</a>
-</div>
 
 </div>
+
+<div class="container">
+
+
+    <a href="ia.html" class="card">
+        <h2>🤖 IA Educativa</h2>
+        <p>Aprenda tecnologia e inteligência artificial.</p>
+    </a>
+
+
+<a href="desafios.html" class="card">
+    
+        <h2>🎮 Desafios</h2>
+        <p>Complete missões e ganhe XP.</p>
+</a>
+
+
+
+    
+   
+    <a class="card" href="comunidade.html">
+        <h2>🌍 Comunidade</h2>
+        <p>Converse com jovens santomenses.</p>
+    </a>
+    
+   
+
+
+<a href="ranking.html" class="card">
+    
+        <h2>🔥 Ranking</h2>
+        <p>Veja os melhores usuários da semana.</p>
+</a>
+
+    
+
+
+</div>
+
 <script src="script.js"></script>
+
 </body>
 </html>

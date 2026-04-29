@@ -4,45 +4,153 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>IA - STP-Digital</title>
+<title>IA STP-Digital</title>
 
 <style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
 
 body{
 background:#0f172a;
 color:white;
-font-family:Arial;
-padding:30px;
+height:100vh;
+display:flex;
+flex-direction:column;
 }
 
-h1{
-margin-bottom:20px;
+/* topo */
+
+.topo{
+
+padding:20px;
+
+background:rgba(255,255,255,0.05);
+
+backdrop-filter:blur(10px);
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
 }
+
+.logo{
+
+font-size:25px;
+
+font-weight:bold;
+
+background:linear-gradient(45deg,#3b82f6,#8b5cf6);
+
+background-clip:text;
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+}
+
+/* chat */
 
 .chat{
-background:rgba(255,255,255,0.05);
+
+flex:1;
+
 padding:20px;
-border-radius:20px;
-height:400px;
-overflow:auto;
-margin-bottom:20px;
+
+overflow-y:auto;
+
+display:flex;
+
+flex-direction:column;
+
+gap:15px;
+
+}
+
+/* mensagens */
+
+.msg-user{
+
+align-self:flex-end;
+
+background:linear-gradient(45deg,#3b82f6,#8b5cf6);
+
+padding:15px;
+
+border-radius:20px 20px 0 20px;
+
+max-width:70%;
+
+}
+
+.msg-ia{
+
+align-self:flex-start;
+
+background:rgba(255,255,255,0.08);
+
+padding:15px;
+
+border-radius:20px 20px 20px 0;
+
+max-width:70%;
+
+}
+
+/* área input */
+
+.input-area{
+
+display:flex;
+
+padding:20px;
+
+gap:10px;
+
+background:rgba(255,255,255,0.03);
+
 }
 
 input{
-width:80%;
+
+flex:1;
+
 padding:15px;
+
 border:none;
-border-radius:12px;
+
 outline:none;
+
+border-radius:15px;
+
+background:rgba(255,255,255,0.08);
+
+color:white;
+
 }
 
 button{
-padding:15px;
+
+padding:15px 25px;
+
 border:none;
-border-radius:12px;
-background:#3b82f6;
+
+border-radius:15px;
+
+background:linear-gradient(45deg,#3b82f6,#8b5cf6);
+
 color:white;
+
 cursor:pointer;
+
 }
 
 </style>
@@ -50,37 +158,121 @@ cursor:pointer;
 
 <body>
 
-<h1>🤖 IA STP-Digital</h1>
+<div class="topo">
 
-<div class="chat" id="chat">
-
-<p>IA: Olá 😄 Como posso ajudar?</p>
+<div class="logo">
+🤖 STP IA
+</div>
 
 </div>
 
-<input type="text" id="pergunta" placeholder="Pergunte algo...">
+<div class="chat" id="chat">
+
+<div class="msg-ia">
+Olá 😄 Eu sou a IA do STP-Digital.
+</div>
+
+</div>
+
+<div class="input-area">
+
+<input
+type="text"
+id="pergunta"
+placeholder="Pergunte algo..."
+>
 
 <button onclick="enviar()">
 Enviar
 </button>
 
+</div>
+
 <script>
+    const mensagens = [
+
+{
+role:"system",
+
+content:`
+Você é uma IA educativa do STP-Digital.
+
+Sua missão é ajudar jovens santomenses com:
+- educação
+- programação
+- tecnologia
+- criatividade
+- inteligência artificial
+- pensamento positivo
+- aprendizado saudável
+- motivação
+- cultura digital
+
+Você deve:
+- responder de forma clara
+- ensinar com paciência
+- incentivar respeito
+- incentivar estudo e criatividade
+- ajudar iniciantes
+
+Nunca:
+- incentive violência
+- incentive ódio
+- incentive crimes
+- espalhe desinformação
+- ensine coisas perigosas
+- responda de forma ofensiva
+
+Fale de forma moderna, amigável e inspiradora.
+`
+},
+
+{
+role:"user",
+content: pergunta
+}
+
+];
+
 
 function enviar(){
 
 let pergunta =
 document.getElementById("pergunta").value;
 
+if(pergunta === ""){
+return;
+}
+
 let chat =
 document.getElementById("chat");
 
-chat.innerHTML += `
-<p><b>Você:</b> ${pergunta}</p>
-`;
+/* mensagem usuário */
 
 chat.innerHTML += `
-<p><b>IA:</b> Ainda estou em desenvolvimento 😄</p>
+<div class="msg-user">
+${pergunta}
+</div>
 `;
+
+/* resposta IA */
+
+let resposta =
+"😄 Ainda estou aprendendo, mas no futuro serei uma IA poderosa do STP-Digital.";
+
+/* mensagem ia */
+
+chat.innerHTML += `
+<div class="msg-ia">
+${resposta}
+</div>
+`;
+
+document.getElementById("pergunta").value = "";
+
+/* descer automático */
+
+chat.scrollTop = chat.scrollHeight;
 
 }
 
