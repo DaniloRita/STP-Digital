@@ -204,8 +204,6 @@ Mesmo no modo criador:
 });
 
 }
-document.getElementById("loading").innerHTML =
-"Pensando...";
 
 const resposta = await fetch(
 "https://api.groq.com/openai/v1/chat/completions",
@@ -233,7 +231,13 @@ await resposta.json();
 console.log(dados)
 //alert(JSON.stringify(dados))
 
-document.getElementById("loading").remove();
+let loading =
+document.getElementById("loading");
+
+if(loading){
+loading.remove();
+}
+
 
 let respostaIA =
 dados.choices[0].message.content;
@@ -264,11 +268,13 @@ localStorage.setItem(
 "memoria",
 JSON.stringify(mensagens)
 );
+let idMensagem =
+"msg-" + Date.now();
 
 chat.innerHTML += `
 <div class="msg-ia">
 
-<div class="texto" id="msgAtual"></div>
+<div class="texto" id="${idMensagem}"></div>
 
 <button onclick='lerMensagem(\`${respostaIA}\`)'>
 🔊 Ler
@@ -276,14 +282,22 @@ chat.innerHTML += `
 
 </div>
 `;
-digitarResposta(respostaIA);
+digitarResposta(respostaIA, idMensagem);
 
 chat.scrollTop = chat.scrollHeight;
 
 }catch(erro){
 
-document.getElementById("loading").innerHTML =
+let loading =
+document.getElementById("loading");
+
+if(loading){
+
+loading.innerHTML =
 "Erro ao conectar IA.";
+
+}
+
 
 }
 
@@ -308,10 +322,15 @@ voz.rate = 1;
 speechSynthesis.speak(voz);
 
 }
-async function digitarResposta(texto){
+async function digitarResposta(texto, id){
 
 let elemento =
-document.getElementById("msgAtual");
+document.getElementById(id);
+
+if(!elemento){
+return;
+}
+
 
 let textoAtual = "";
 
@@ -322,14 +341,13 @@ textoAtual += texto.charAt(i);
 elemento.innerHTML =
 marked.parse(textoAtual);
 
-chat.scrollTop = chat.scrollHeight;
-
 await new Promise(resolve =>
-setTimeout(resolve, 0)
+setTimeout(resolve, 5)
 );
 
 }
 
 }
+
 
 

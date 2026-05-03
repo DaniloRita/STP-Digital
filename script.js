@@ -12,7 +12,7 @@ localStorage.setItem("senha", senha);
 
 localStorage.setItem("logado", "true");
 
-window.location.href = "home.html";
+window.location.href = "index.html";
 
 }
 
@@ -34,7 +34,7 @@ if(email === emailSalvo && senha === senhaSalva){
 
 localStorage.setItem("logado", "true");
 
-window.location.href = "home.html";
+window.location.href = "index.html";
 
 }else{
 
